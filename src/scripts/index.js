@@ -1,123 +1,122 @@
-const recipes = [
-  {
-    id: 1,
-    name: "Limonade de Coco",
-    servings: 1,
-    ingredients: [
-      {
-        ingredient: "Lait de coco",
-        quantity: 400,
-        unit: "ml",
-      },
-      {
-        ingredient: "Jus de citron",
-        quantity: 2,
-      },
-      {
-        ingredient: "Crème de coco",
-        quantity: 2,
-        unit: "cuillères à soupe",
-      },
-      {
-        ingredient: "Sucre",
-        quantity: 30,
-        unit: "grammes",
-      },
-      {
-        ingredient: "Glaçons",
-      },
-    ],
-    time: 10,
-    description:
-      "Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée",
-    appliance: "Blender",
-    ustensils: ["cuillère à Soupe", "verres", "presse citron"],
-  },
-  {
-    id: 2,
-    name: "Poisson Cru à la tahitienne",
-    servings: 2,
-    ingredients: [
-      {
-        ingredient: "Thon Rouge (ou blanc)",
-        quantity: 200,
-        unit: "grammes",
-      },
-      {
-        ingredient: "Concombre",
-        quantity: 1,
-      },
-      {
-        ingredient: "Tomate",
-        quantity: 2,
-      },
-      {
-        ingredient: "Carotte",
-        quantity: 1,
-      },
-      {
-        ingredient: "Citron Vert",
-        quantity: 5,
-      },
-      {
-        ingredient: "Lait de Coco",
-        quantity: 100,
-        unit: "ml",
-      },
-    ],
-    time: 60,
-    description:
-      "Découper le thon en dés, mettre dans un plat et recouvrir de jus de citron vert (mieux vaut prendre un plat large et peu profond). Laisser reposer au réfrigérateur au moins 2 heures. (Si possible faites-le le soir pour le lendemain. Après avoir laissé mariner le poisson, coupez le concombre en fines rondelles sans la peau et les tomates en prenant soin de retirer les pépins. Rayer la carotte. Ajouter les légumes au poissons avec le citron cette fois ci dans un Saladier. Ajouter le lait de coco. Pour ajouter un peu plus de saveur vous pouvez ajouter 1 à 2 cuillères à soupe de Crème de coco",
-    appliance: "Saladier",
-    ustensils: ["presse citron"],
-  },
-];
+import { recipes } from "./api/recipes.js";
+
+
+function generateRecipeHTML(recipe) {
+  // Get the ingredients HTML
+  const ingredientsHTML = recipe.ingredients.map((ingredient) => {
+    const quantity = ingredient.quantity ? ingredient.quantity + ' ' : '';
+    const unit = ingredient.unit ? ingredient.unit + ' de ' : '';
+    return `<li>${quantity}${unit}${ingredient.ingredient}</li>`;
+  }).join('');
+
+  // Generate the figure HTML
+  const figureHTML = `
+    <figure class="main__recipes__figure">
+      <div class="main__recipes__figure__image-placeholder"></div>
+      <figcaption class="main__recipes__figure__figcaption">
+        <h2 class="main__recipes__figure__figcaption__title">${recipe.name}</h2>
+        <p class="main__recipes__figure__figcaption__time">${recipe.time} min</p>
+        <ul class="main__recipes__figure__figcaption__ingredients">${ingredientsHTML}</ul>
+        <p class="main__recipes__figure__figcaption__description">${recipe.description}</p>
+      </figcaption>
+    </figure>
+  `;
+
+  return figureHTML;
+}
+
+
+function generateIngHTML(recipe) {
+  const allIngredients = recipe.ingredients.map((ingredient) => ingredient.ingredient);
+  const uniqueIngredients = [...new Set(allIngredients)];
+  const ingredientsListHTML = uniqueIngredients.map((ingredient) => {
+    return `<li>${ingredient}</li>`;
+  }).join('');
+  const IngListHTML = `
+    <option value="${ingredientsListHTML}">${ingredientsListHTML}</option>
+  `;
+
+  return IngListHTML;
+}
+
+
+
+function generateApplianceHTML(recipe) {
+  const uniqueAppliances = new Set();
+  recipes.forEach(recipe => {
+    uniqueAppliances.add(recipe.appliance);
+  });
+  const sortedAppliances = Array.from(uniqueAppliances).sort();
+  const ApplianceHTML = sortedAppliances.map(appliance => `
+    <option value="${appliance}">${appliance}</option>
+  `);
+  return ApplianceHTML;
+}
+
+
+function generateStencilsHTML(recipe) {
+  const uniqueUstensils = [...new Set(recipe.ustensils)];
+  const optionHTML = uniqueUstensils.map((ustensil) => {
+    return `<option value="${ustensil}">${ustensil}</option>`;
+  }).join('');
+  const StencilsHTML = `
+       ${optionHTML}
+  `;
+  return StencilsHTML;
+}
+
+
+// get the select elements
+const ingredientSelect = document.getElementById('ingredients');
+const applianceSelect = document.getElementById('appliance');
+const ustensilsSelect = document.getElementById('stencils');
+
+// listen for changes in the select elements and filter the recipes accordingly
+ingredientSelect.addEventListener('change', () => {
+  const selectedIngredients = Array.from(ingredientSelect.selectedOptions).map(option => option.value);
+  const filteredRecipes = recipes.filter(recipe => {
+    return selectedIngredients.every(ingredient => recipe.ingredients.some(ri => ri.ingredient.toLowerCase().includes(ingredient.toLowerCase())));
+  });
+  displayRecipes(filteredRecipes);
+});
+
+applianceSelect.addEventListener('change', () => {
+  const selectedAppliance = applianceSelect.value;
+  const filteredRecipes = recipes.filter(recipe => {
+    return recipe.appliance.toLowerCase().includes(selectedAppliance.toLowerCase());
+  });
+  displayRecipes(filteredRecipes);
+});
+
+ustensilsSelect.addEventListener('change', () => {
+  const selectedUstensil = ustensilsSelect.value;
+  const filteredRecipes = recipes.filter(recipe => {
+    return recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(selectedUstensil.toLowerCase()));
+  });
+  displayRecipes(filteredRecipes);
+});
+
+// a helper function to display the filtered recipes
+function displayRecipes(filteredRecipes) {
+  recipesContainer.innerHTML = '';
+  filteredRecipes.forEach((recipe) => {
+    const recipeHTML = generateRecipeHTML(recipe);
+    recipesContainer.insertAdjacentHTML('beforeend', recipeHTML);
+  });
+}
 
 const recipesContainer = document.getElementById("recipes-container");
+const ingContainer = document.getElementById("ingredients");
+const applianceContainer = document.getElementById("appliance");
+const stencilsContainer = document.getElementById("stencils");
 
 recipes.forEach((recipe) => {
-  const figure = document.createElement("figure");
-  figure.classList.add("main__recipes__figure");
-
-  const imagePlaceholder = document.createElement("div");
-  imagePlaceholder.classList.add("main__recipes__figure__image-placeholder");
-  figure.appendChild(imagePlaceholder);
-
-  const figcaption = document.createElement("figcaption");
-  figcaption.classList.add("main__recipes__figure__figcaption");
-  figure.appendChild(figcaption);
-
-  const title = document.createElement("h2");
-  title.classList.add("main__recipes__figure__figcaption__title");
-  title.textContent = recipe.name;
-  figcaption.appendChild(title);
-
-  const time = document.createElement("p");
-  time.classList.add("main__recipes__figure__figcaption__time");
-  time.textContent = recipe.time + " min";
-  figcaption.appendChild(time);
-
-  const ingredients = document.createElement("p");
-  ingredients.classList.add("main__recipes__figure__figcaption__ingredients");
-  const ingredientsText = recipe.ingredients
-    .map((ingredient) => {
-      let text = ingredient.ingredient;
-      if (ingredient.quantity) {
-        text += " " + ingredient.quantity;
-        if (ingredient.unit) {
-          text += " " + ingredient.unit;
-        }
-      }
-      return text;
-    })
-    .join(", ");
-  ingredients.textContent = ingredientsText;
-  figcaption.appendChild(ingredients);
-
-  const description = document.createElement("p");
-  description.classList.add("main__recipes__figure__figcaption__description");
-  description.textContent = recipe.description;
-  figcaption.appendChild(description);
-
-  recipesContainer.appendChild(figure);
+  const recipeHTML = generateRecipeHTML(recipe);
+  recipesContainer.insertAdjacentHTML('beforeend', recipeHTML);
+  const IngHTML = generateIngHTML(recipe);
+  ingContainer.insertAdjacentHTML('beforeend', IngHTML);
+  const ApplianceHTML = generateApplianceHTML(recipe);
+  applianceContainer.insertAdjacentHTML('beforeend', ApplianceHTML);
+  const StencilsHTML = generateStencilsHTML(recipe);
+  stencilsContainer.insertAdjacentHTML('beforeend', StencilsHTML);
 });
