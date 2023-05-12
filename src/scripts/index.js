@@ -1,5 +1,7 @@
 import { recipes } from "./api/recipes.js";
 
+const searchInput = document.querySelector('#search-bar');
+const recipeList = document.querySelector('#recipes-container');
 
 function generateRecipeHTML(recipe) {
   // Get the ingredients HTML
@@ -26,97 +28,30 @@ function generateRecipeHTML(recipe) {
 }
 
 
-function generateIngHTML(recipe) {
-  const allIngredients = recipe.ingredients.map((ingredient) => ingredient.ingredient);
-  const uniqueIngredients = [...new Set(allIngredients)];
-  const ingredientsListHTML = uniqueIngredients.map((ingredient) => {
-    return `<li>${ingredient}</li>`;
-  }).join('');
-  const IngListHTML = `
-    <option value="${ingredientsListHTML}">${ingredientsListHTML}</option>
-  `;
-
-  return IngListHTML;
-}
 
 
-
-function generateApplianceHTML(recipe) {
-  const uniqueAppliances = new Set();
-  recipes.forEach(recipe => {
-    uniqueAppliances.add(recipe.appliance);
+function searchRecipes(query) {
+  return recipes.filter(recipe => {
+    return recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+           recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query.toLowerCase()));
   });
-  const sortedAppliances = Array.from(uniqueAppliances).sort();
-  const ApplianceHTML = sortedAppliances.map(appliance => `
-    <option value="${appliance}">${appliance}</option>
-  `);
-  return ApplianceHTML;
 }
 
-
-function generateStencilsHTML(recipe) {
-  const uniqueUstensils = [...new Set(recipe.ustensils)];
-  const optionHTML = uniqueUstensils.map((ustensil) => {
-    return `<option value="${ustensil}">${ustensil}</option>`;
-  }).join('');
-  const StencilsHTML = `
-       ${optionHTML}
-  `;
-  return StencilsHTML;
-}
-
-
-// get the select elements
-const ingredientSelect = document.getElementById('ingredients');
-const applianceSelect = document.getElementById('appliance');
-const ustensilsSelect = document.getElementById('stencils');
-
-// listen for changes in the select elements and filter the recipes accordingly
-ingredientSelect.addEventListener('change', () => {
-  const selectedIngredients = Array.from(ingredientSelect.selectedOptions).map(option => option.value);
-  const filteredRecipes = recipes.filter(recipe => {
-    return selectedIngredients.every(ingredient => recipe.ingredients.some(ri => ri.ingredient.toLowerCase().includes(ingredient.toLowerCase())));
+searchInput.addEventListener('input', event => {
+  const query = event.target.value;
+  const filteredRecipes = searchRecipes(query);
+  
+  recipeList.innerHTML = '';
+  filteredRecipes.forEach(recipe => {
+    const recipeElement = document.createElement('li');
+    recipeElement.innerHTML = generateRecipeHTML(recipe);
+    recipeList.appendChild(recipeElement);
   });
-  displayRecipes(filteredRecipes);
 });
 
-applianceSelect.addEventListener('change', () => {
-  const selectedAppliance = applianceSelect.value;
-  const filteredRecipes = recipes.filter(recipe => {
-    return recipe.appliance.toLowerCase().includes(selectedAppliance.toLowerCase());
-  });
-  displayRecipes(filteredRecipes);
-});
 
-ustensilsSelect.addEventListener('change', () => {
-  const selectedUstensil = ustensilsSelect.value;
-  const filteredRecipes = recipes.filter(recipe => {
-    return recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(selectedUstensil.toLowerCase()));
-  });
-  displayRecipes(filteredRecipes);
-});
-
-// a helper function to display the filtered recipes
-function displayRecipes(filteredRecipes) {
-  recipesContainer.innerHTML = '';
-  filteredRecipes.forEach((recipe) => {
-    const recipeHTML = generateRecipeHTML(recipe);
-    recipesContainer.insertAdjacentHTML('beforeend', recipeHTML);
-  });
-}
-
-const recipesContainer = document.getElementById("recipes-container");
-const ingContainer = document.getElementById("ingredients");
-const applianceContainer = document.getElementById("appliance");
-const stencilsContainer = document.getElementById("stencils");
 
 recipes.forEach((recipe) => {
   const recipeHTML = generateRecipeHTML(recipe);
-  recipesContainer.insertAdjacentHTML('beforeend', recipeHTML);
-  const IngHTML = generateIngHTML(recipe);
-  ingContainer.insertAdjacentHTML('beforeend', IngHTML);
-  const ApplianceHTML = generateApplianceHTML(recipe);
-  applianceContainer.insertAdjacentHTML('beforeend', ApplianceHTML);
-  const StencilsHTML = generateStencilsHTML(recipe);
-  stencilsContainer.insertAdjacentHTML('beforeend', StencilsHTML);
+  recipeList.insertAdjacentHTML('beforeend', recipeHTML);
 });
