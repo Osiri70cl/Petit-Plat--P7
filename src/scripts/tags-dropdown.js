@@ -1,67 +1,14 @@
-const listTagsItem = document.querySelectorAll(".list-tags-item");
-
-//filtered tags
-const filteredTagsList = document.querySelector(".filtered-tags-list");
-const filteredTagsItem = document.getElementsByClassName("filtered-tags-item");
-
 // Dropdown container list tags
 const ingredientsListTags = document.getElementById("ingredients-list-tags");
 const appliancesListTags = document.getElementById("appliances-list-tags");
 const ustensilsListTags = document.getElementById("ustensils-list-tags");
 
-let filteredTagsArr = [];
-let filteredTagValue;
-
-let tagBgColorArray = [];
-let tagBgColor;
-
 let ingredientsListArray = [];
 let appliancesListArray = [];
 let ustensilsListArray = [];
 
-function addNewTag(event, tagBgColor) {
-  filteredTagValue = event.target.dataset.value;
-  if (filteredTagsArr.includes(filteredTagValue)) {
-    return;
-  } else {
-    filteredTagsArr.push(filteredTagValue);
-    tagBgColor = event.target.dataset.color;
-    tagBgColorArray.push(tagBgColor);
-
-    renderFilteredTags();
-    handlerRequestByTags();
-  }
-  console.log(filteredTagsArr);
-}
-
-export function renderFilteredTags() {
-  let newTag = "";
-  for (let i = 0; i < filteredTagsArr.length; i++) {
-    newTag += `
-        <li class="filtered-tags-item list-group-item d-flex align-items-center rounded-3 border-light ps-3 py-2 me-2 mb-2 fw-bold text-white bg-${tagBgColorArray[i]}"
-           data-tag="#${i}">
-                ${filteredTagsArr[i]}
-            <button class="filtered-tags-btn ms-3" type="button" aria-label="Supprimer le tag" onclick="deleteTag(${i})"></button>
-        </li>`;
-  }
-  //adding new tag inside ul tag
-  filteredTagsList.innerHTML = newTag;
-  closeAllDropdowns();
-}
-
-function deleteTag(index) {
-  // delete or remove the tag name
-  filteredTagsArr.splice(index, 1);
-  // delete or remove the tag color
-  tagBgColorArray.splice(index, 1);
-
-  renderFilteredTags();
-  handlerRequestByTags();
-  console.log(filteredTagsArr);
-}
-
 // List Tags Ingredients for filter
-export function renderIngredientsList(recipes) {
+function renderIngredientsList(recipes) {
   let allIngredientsRecipes = [];
 
   recipes.map((recipe) => {
@@ -76,7 +23,7 @@ export function renderIngredientsList(recipes) {
 }
 
 // List Tags Ingredients for search in dropdown input
-export function renderIngredientsListFiltred(ingredientsListArray) {
+function renderIngredientsListFiltred(ingredientsListArray) {
   const newItemIngredient = ingredientsListArray
     .map(
       (item) => `
@@ -90,12 +37,8 @@ export function renderIngredientsListFiltred(ingredientsListArray) {
   ingredientsListTags.innerHTML = newItemIngredient;
 }
 
-//=====================================
-// APPLIANCES
-//=====================================
-
 // List Tags Appliances
-export function renderAppliancesList(recipes) {
+function renderAppliancesList(recipes) {
   let allAppliancesRecipes = [];
 
   recipes.map((recipes) => {
@@ -122,12 +65,8 @@ function renderAppliancesListFiltred(appliancesListArray) {
   appliancesListTags.innerHTML = newItemAppliance;
 }
 
-//=====================================
-// USTENSILS
-//=====================================
-
 // List Tags Ustensils
-export function renderUstensilsList(recipes) {
+function renderUstensilsList(recipes) {
   let allUstensilsRecipes = [];
 
   recipes.map((recipes) => {

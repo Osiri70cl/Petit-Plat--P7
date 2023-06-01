@@ -16,51 +16,69 @@
   </head>
 
   <body>
-    <header class="header">
-      <img src="../assets/logo.png" alt="Petit Plat Logo" />
-    </header>
-    <section class="main">
-      <div class="main__search">
-        <div class="main__search__searchBar">
-          <input
-            type="text"
-            placeholder="Rechercher un ingrédient"
-            class="main__search__searchBar__input"
-            id="search-bar"
-          />
-        </div>
-        <form class="container-lg mb-4 p-0 search-bar" autocomplete="off">
-          <div class="input-group">
-            <label for="search-bar-input" class="visually-hidden">
-              Ecrire un mot pour filtrer les recettes</label
+    <div id="wrapper-homepage" class="container-lg">
+      <header class="container-fluid mt-4">
+        <nav class="navbar">
+          <!-- brand logo & heading -->
+          <div class="row mx-auto mb-2">
+            <a
+              class="navbar-brand text-center"
+              href="index.html"
+              aria-label="Les petits plats, Homepage"
             >
-            <input
-              id="search-bar-input"
-              class="form-control rounded-3 border-light ps-3 pe-5 fs-5"
-              type="text"
-              placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-              aria-label="Search"
-            />
-            <svg
-              width="33"
-              height="33"
-              viewBox="0 0 33 33"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M23.4167 20.6667H21.9683L21.455 20.1717C23.2517 18.0817 24.3333 15.3683 24.3333 12.4167C24.3333 5.835 18.9983 0.5 12.4167 0.5C5.835 0.5 0.5 5.835 0.5 12.4167C0.5 18.9983 5.835 24.3333 12.4167 24.3333C15.3683 24.3333 18.0817 23.2517 20.1717 21.455L20.6667 21.9683V23.4167L29.8333 32.565L32.565 29.8333L23.4167 20.6667ZM12.4167 20.6667C7.85167 20.6667 4.16667 16.9817 4.16667 12.4167C4.16667 7.85167 7.85167 4.16667 12.4167 4.16667C16.9817 4.16667 20.6667 7.85167 20.6667 12.4167C20.6667 16.9817 16.9817 20.6667 12.4167 20.6667Z"
-                fill="black"
+              <img
+                src="./img/logo-les-petits-plats.svg"
+                width="52"
+                height="47"
+                alt="Logo Les petits plats"
+                aria-label="Logo Les petits plats"
               />
-            </svg>
+              <h1 class="brand-heading text-center fw-bold">
+                Les petits plats
+              </h1>
+            </a>
           </div>
-        </form>
-        <div class="main__search__dropdowns">
+
+          <!-- Search bar-->
+          <form class="container-lg mb-4 p-0 search-bar" autocomplete="off">
+            <div class="input-group">
+              <label for="search-bar-input" class="visually-hidden">
+                Ecrire un mot pour filtrer les recettes</label
+              >
+              <input
+                id="search-bar-input"
+                class="form-control rounded-3 border-light ps-3 pe-5 fs-5"
+                type="text"
+                placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+                aria-label="Search"
+              />
+              <img
+                class="search-bar-icon position-absolute top-50 end-0 translate-middle-y me-4"
+                src="./img/search-icon.svg"
+                width="32"
+                height="32"
+                alt="icon search"
+                aria-hidden="true"
+              />
+            </div>
+          </form>
+
+          <!-- container tags -->
+          <div class="filtered-tags-container container-lg p-0">
+            <ul
+              class="filtered-tags-list list-group d-flex justify-content-start flex-wrap list-group-horizontal tags-list"
+            ></ul>
+          </div>
+
+          <!-- overlay -->
+          <div class="overlay-form hidden"></div>
+          <!-- 3 dropdowns container -->
           <form
             id="dropdowns"
             class="container btn-group d-flex flex-row justify-content-start flex-wrap p-0 mx-0 my-2"
             autocomplete="off"
           >
+            <!-- Ingredients -->
             <nav
               id="ingredients-container-dropdown"
               class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-blue"
@@ -86,6 +104,7 @@
                   aria-label="ouvrir le menu déroulant"
                 ></button>
               </div>
+              <!-- autocomplete -->
               <div
                 id="ingredients-container-tags"
                 class="container-tags container position-absolute rounded-3 border-0 p-0 pt-2 pb-3 fw-bold bg-blue hidden"
@@ -97,6 +116,8 @@
                 ></ul>
               </div>
             </nav>
+
+            <!-- Appliances -->
             <nav
               id="appliances-container-dropdown"
               class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-green"
@@ -122,6 +143,7 @@
                   aria-label="ouvrir le menu déroulant"
                 ></button>
               </div>
+              <!-- autocomplete -->
               <div
                 id="appliances-container-tags"
                 class="container-tags container position-absolute rounded-3 border-0 text-white p-0 pt-2 pb-3 fw-bold bg-green hidden"
@@ -133,6 +155,8 @@
                 ></ul>
               </div>
             </nav>
+
+            <!-- Ustensils -->
             <nav
               id="ustensils-container-dropdown"
               class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-orange"
@@ -171,13 +195,38 @@
               </div>
             </nav>
           </form>
+        </nav>
+      </header>
+
+      <main>
+        <div
+          id="alert-message"
+          class="container-lg mb-5 hidden"
+          aria-hidden="true"
+        >
+          <p class="alert alert-danger text-center" role="alert">
+            Aucune recette ne correspond à votre critère... Vous pouvez chercher
+            "tarte aux pommes", "poisson", etc.
+          </p>
         </div>
-      </div>
-      <div class="main__recipes" id="recipes-container"></div>
-    </section>
-    <script src="../src/scripts/index.js" type="module"></script>
-    <script src="../src/scripts/search-bar.js" type="module"></script>
-    <script src="../src/scripts/recipe.js" type="module"></script>
-    <script src="../src/scripts/recipe.js" type="module"></script>
+
+        <!-- container Cards' recipes -->
+        <div id="wrap-container-cards" class="container-lg mb-5">
+          <div
+            id="container-cards-recipes"
+            class="row row-cols-1 row-cols-md-2 row-cols-xxl-3 gy-4 gx-4 g-xxl-5"
+          ></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- main JS -->
+    <script src="../src/scripts/recipes.js"></script>
+    <script src="../src/scripts/dropdowns.js"></script>
+    <script src="../src/scripts/cards.js"></script>
+    <script src="../src/scripts/tags-dropdown.js"></script>
+    <script src="../src/scripts/filtered-tags.js"></script>
+    <script src="../src/scripts/search-recipes.js"></script>
+    <script src="../src/scripts/main.js"></script>
   </body>
 </html>

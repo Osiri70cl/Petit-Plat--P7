@@ -1,9 +1,3 @@
-import {
-  renderIngredientsList,
-  renderAppliancesList,
-  renderUstensilsList,
-} from "./tags.js";
-
 const searchBar = document.getElementById("search-bar-input");
 const alertMessage = document.getElementById("alert-message");
 
@@ -49,7 +43,7 @@ function normalizeElement(element) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-export function requestBySearchBar(searchText) {
+function requestBySearchBar(searchText) {
   if (searchText.length >= 3) {
     filterCardsByInput = allRecipes.filter((recipe) => {
       const regex = new RegExp(normalizeElement(`${searchText}`));
@@ -73,7 +67,7 @@ export function requestBySearchBar(searchText) {
 }
 
 // Function for handler the search by tags
-export function handlerRequestByTags() {
+function handlerRequestByTags() {
   if (searchBar.value.length >= 3) {
     requestByTags(filteredTagsArr, filterFurtherByTags, filterCardsByInput);
   } else if (searchBar.value.length < 3) {
@@ -106,7 +100,7 @@ function requestByTags(tags, arrayFiltred, array) {
 }
 
 // search by Input Ingredients
-export function searchIngredientsList(searchText) {
+function searchIngredientsList(searchText) {
   if (ingredientsSearch.value.length >= 1) {
     ingredientsListFiltred = ingredientsListArray.filter((itemTag) => {
       const searchValue = normalizeElement(`${searchText}`);
@@ -119,7 +113,7 @@ export function searchIngredientsList(searchText) {
 }
 
 // search by Input Appliances
-export function searchAppliancesList(searchText) {
+function searchAppliancesList(searchText) {
   if (appliancesSearch.value.length >= 1) {
     appliancesListFiltred = appliancesListArray.filter((itemTag) => {
       const searchValue = normalizeElement(`${searchText}`);
@@ -132,7 +126,7 @@ export function searchAppliancesList(searchText) {
 }
 
 // search by Input Ustensils
-export function searchUstensilsList(searchText) {
+function searchUstensilsList(searchText) {
   if (ustensilsSearch.value.length >= 1) {
     ustensilsListFiltred = ustensilsListArray.filter((itemTag) => {
       const searchValue = normalizeElement(`${searchText}`);
