@@ -30,10 +30,10 @@ function renderFilteredTags() {
   let newTag = "";
   for (let i = 0; i < filteredTagsArr.length; i++) {
     newTag += `
-        <li class="filtered-tags-item list-group-item d-flex align-items-center rounded-3 border-light ps-3 py-2 me-2 mb-2 fw-bold text-white bg-${tagBgColorArray[i]}"
+        <li class="filtered-tags-item list-group-item"
            data-tag="#${i}">
                 ${filteredTagsArr[i]}
-            <button class="filtered-tags-btn ms-3" type="button" aria-label="Supprimer le tag" onclick="deleteTag(${i})"></button>
+            <button class="filtered-tags-btn" type="button" aria-label="Supprimer le tag" onclick="deleteTag(${i})"></button>
         </li>`;
   }
   //adding new tag inside ul tag

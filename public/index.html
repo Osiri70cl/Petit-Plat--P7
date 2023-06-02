@@ -7,7 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <link href="../css/main.css?ver=1" rel="stylesheet" type="text/css" />
+    <link href="../css/main.css?ver=2" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="../assets/favicon.png" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,207 +16,140 @@
   </head>
 
   <body>
-    <div id="wrapper-homepage" class="container-lg">
-      <header class="container-fluid mt-4">
-        <nav class="navbar">
-          <!-- brand logo & heading -->
-          <div class="row mx-auto mb-2">
+    <div id="wrapper-homepage" class="container">
+      <header class="header">
+        <nav class="header__navbar">
+          <div class="header__navbar__logo">
             <a
-              class="navbar-brand text-center"
+              class="header__navbar__logo__link"
               href="index.html"
               aria-label="Les petits plats, Homepage"
             >
               <img
-                src="./img/logo-les-petits-plats.svg"
-                width="52"
-                height="47"
+                src="../assets/logo.png"
+                width="268"
+                height="93"
                 alt="Logo Les petits plats"
                 aria-label="Logo Les petits plats"
               />
-              <h1 class="brand-heading text-center fw-bold">
-                Les petits plats
-              </h1>
             </a>
           </div>
-
-          <!-- Search bar-->
-          <form class="container-lg mb-4 p-0 search-bar" autocomplete="off">
-            <div class="input-group">
-              <label for="search-bar-input" class="visually-hidden">
-                Ecrire un mot pour filtrer les recettes</label
-              >
-              <input
-                id="search-bar-input"
-                class="form-control rounded-3 border-light ps-3 pe-5 fs-5"
-                type="text"
-                placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
-                aria-label="Search"
-              />
-              <img
-                class="search-bar-icon position-absolute top-50 end-0 translate-middle-y me-4"
-                src="./img/search-icon.svg"
-                width="32"
-                height="32"
-                alt="icon search"
-                aria-hidden="true"
-              />
-            </div>
+          <form class="header__navbar__form" autocomplete="off">
+            <input
+              id="search-bar-input"
+              class="header__navbar__form__input"
+              type="text"
+              placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+              aria-label="Search"
+            />
+            <img
+              class="header__navbar__form__img"
+              src="../assets/search-icon.svg"
+              width="32"
+              height="32"
+              alt="icon search"
+              aria-hidden="true"
+            />
           </form>
-
-          <!-- container tags -->
-          <div class="filtered-tags-container container-lg p-0">
-            <ul
-              class="filtered-tags-list list-group d-flex justify-content-start flex-wrap list-group-horizontal tags-list"
-            ></ul>
+          <div class="filtered-tags-container header__navbar__tags">
+            <ul class="filtered-tags-list header__navbar__tags__list"></ul>
           </div>
-
-          <!-- overlay -->
           <div class="overlay-form hidden"></div>
-          <!-- 3 dropdowns container -->
           <form
             id="dropdowns"
-            class="container btn-group d-flex flex-row justify-content-start flex-wrap p-0 mx-0 my-2"
+            class="header__navbar__dropdowns"
             autocomplete="off"
           >
-            <!-- Ingredients -->
             <nav
               id="ingredients-container-dropdown"
-              class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-blue"
+              class="header__navbar__dropdowns__container blue"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <div
-                class="input-dropdown-wrap btn-group d-flex flex-row align-items-center rounded-3 bg-blue"
-              >
-                <label for="ingredients-search" class="visually-hidden"
-                  >Filtrez les recettes par ingrédients</label
-                >
+              <div class="input-dropdown-wrap">
                 <input
                   id="ingredients-search"
-                  class="input-dropdown form-control bg-transparent border-0 ps-4 pe-0 py-3 text-white fw-bold"
+                  class="input-dropdown"
                   placeholder="Ingrédients"
                   type="text"
                 />
                 <button
                   id="ingredients-btn-chevron"
-                  class="btn-chevron btn mx-2 rounded-0"
+                  class="btn-chevron"
                   type="button"
                   aria-label="ouvrir le menu déroulant"
                 ></button>
               </div>
-              <!-- autocomplete -->
               <div
                 id="ingredients-container-tags"
-                class="container-tags container position-absolute rounded-3 border-0 p-0 pt-2 pb-3 fw-bold bg-blue hidden"
+                class="container-tags"
                 aria-hidden="true"
               >
-                <ul
-                  id="ingredients-list-tags"
-                  class="dropdown-list-tags list-group row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex flex-row justify-content-start m-0 p-0 fw-normal"
-                ></ul>
+                <ul id="ingredients-list-tags" class="dropdown-list-tags"></ul>
               </div>
             </nav>
-
-            <!-- Appliances -->
             <nav
               id="appliances-container-dropdown"
-              class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-green"
+              class="header__navbar__dropdowns__container redBlue"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <div
-                class="input-dropdown-wrap btn-group d-flex flex-row align-items-center rounded-3 bg-green"
-              >
-                <label for="appliances-search" class="visually-hidden"
-                  >Filtrez les recettes par appareils</label
-                >
+              <div class="header__navbar__dropdowns__container__dropdown">
                 <input
                   id="appliances-search"
-                  class="input-dropdown form-control bg-transparent border-0 ps-4 pe-0 py-3 text-white fw-bold"
+                  class="input-dropdown"
                   placeholder="Appareils"
                   type="text"
                 />
                 <button
                   id="appliances-btn-chevron"
-                  class="btn-chevron btn mx-2 rounded-0"
+                  class="btn-chevron"
                   type="button"
                   aria-label="ouvrir le menu déroulant"
                 ></button>
               </div>
-              <!-- autocomplete -->
+              >
               <div
                 id="appliances-container-tags"
-                class="container-tags container position-absolute rounded-3 border-0 text-white p-0 pt-2 pb-3 fw-bold bg-green hidden"
+                class="container-tags"
                 aria-hidden="true"
               >
-                <ul
-                  id="appliances-list-tags"
-                  class="dropdown-list-tags list-group row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex flex-row justify-content-start m-0 p-0 fw-normal"
-                ></ul>
+                <ul id="appliances-list-tags" class="dropdown-list-tags"></ul>
               </div>
             </nav>
-
-            <!-- Ustensils -->
             <nav
               id="ustensils-container-dropdown"
-              class="dropdown-container position-relative me-3 mb-3 rounded-3 text-white bg-orange"
+              class="header__navbar__dropdowns__container red"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <div
-                class="input-dropdown-wrap btn-group d-flex flex-row align-items-center rounded-3 bg-orange"
-              >
-                <label for="ustensils-search" class="visually-hidden"
-                  >Filtrez les recettes par ustensiles</label
-                >
+              <div class="input-dropdown-wrap">
                 <input
                   id="ustensils-search"
-                  class="input-dropdown form-control bg-transparent border-0 ps-4 pe-0 py-3 text-white fw-bold"
+                  class="input-dropdown"
                   placeholder="Ustensiles"
                   type="text"
                 />
                 <button
                   id="ustensils-btn-chevron"
-                  class="btn-chevron btn mx-2 rounded-0"
+                  class="btn-chevron"
                   type="button"
                   aria-label="ouvrir le menu déroulant"
                 ></button>
               </div>
-              <!-- autocomplete -->
               <div
                 id="ustensils-container-tags"
-                class="container-tags container position-absolute rounded-3 border-0 text-white p-0 pt-2 pb-3 fw-bold bg-orange hidden"
+                class="container-tags"
                 aria-hidden="true"
               >
-                <ul
-                  id="ustensils-list-tags"
-                  class="dropdown-list-tags list-group row row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex flex-row justify-content-start m-0 p-0 fw-normal"
-                ></ul>
+                <ul id="ustensils-list-tags" class="dropdown-list-tags"></ul>
               </div>
             </nav>
           </form>
         </nav>
       </header>
-
-      <main>
-        <div
-          id="alert-message"
-          class="container-lg mb-5 hidden"
-          aria-hidden="true"
-        >
-          <p class="alert alert-danger text-center" role="alert">
-            Aucune recette ne correspond à votre critère... Vous pouvez chercher
-            "tarte aux pommes", "poisson", etc.
-          </p>
-        </div>
-
-        <!-- container Cards' recipes -->
-        <div id="wrap-container-cards" class="container-lg mb-5">
-          <div
-            id="container-cards-recipes"
-            class="row row-cols-1 row-cols-md-2 row-cols-xxl-3 gy-4 gx-4 g-xxl-5"
-          ></div>
-        </div>
+      <main class="main">
+        <div id="container-cards-recipes" class="main__container-card"></div>
       </main>
     </div>
 

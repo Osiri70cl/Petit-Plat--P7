@@ -38,8 +38,7 @@ function openDropdown(dropdown, containerTags, inputDropdown, btnChevron) {
   dropdown.ariaExpanded = "true";
   containerTags.classList.remove("hidden");
   containerTags.ariaHidden = "false";
-  btnChevron.style.background =
-    "url(./img/chevron-up.svg) center center / 16px 11px no-repeat";
+  btnChevron.style.background = "url(../assets/chevron-up.svg)";
   switch (inputDropdown.id) {
     case "ingredients-search":
       inputDropdown.placeholder = "Recherche un ingrédient";
@@ -59,8 +58,7 @@ function closeDropdown(dropdown, containerTags, inputDropdown, btnChevron) {
   dropdown.ariaExpanded = "false";
   containerTags.classList.add("hidden");
   containerTags.ariaHidden = "true";
-  btnChevron.style.background =
-    "url(./img/chevron-down.svg) center center / 16px 11px no-repeat";
+  btnChevron.style.background = "url(../assets/chevron-down.svg)";
   inputDropdown.value = "";
   switch (inputDropdown.id) {
     case "ingredients-search":
@@ -195,10 +193,6 @@ function closeAllDropdowns() {
   }
 }
 
-//=====================================
-// Trap the focus in each Dropdown
-//=====================================
-
 // add all the elements inside modal which you want to make focusable
 let focusableElements = "button, [href], input";
 let modal;
@@ -209,13 +203,12 @@ let lastFocusableElement;
 // trap the focus inside the form
 function trapFocusDropdown(dropdownType) {
   modal = dropdownType; // select the modal by id
-  firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+  firstFocusableElement = modal.querySelectorAll(focusableElements)[0];
   focusableContent = modal.querySelectorAll(focusableElements);
-  lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+  lastFocusableElement = focusableContent[focusableContent.length - 1];
   trapFocus();
 }
 
-// Function for trap the focus
 function trapFocus() {
   document.addEventListener("keydown", function (e) {
     let isTabPressed = e.key === "Tab" || e.key === 9;
@@ -240,16 +233,11 @@ function trapFocus() {
   firstFocusableElement.focus();
 }
 
-//=====================================
-// Events
-//=====================================
-
 ingredientsBtnChevron.addEventListener("click", handlerDropdownIngredients);
 appliancesBtnChevron.addEventListener("click", handlerDropdownAppliances);
 ustensilsBtnChevron.addEventListener("click", handlerDropdownUstensils);
 
 document.addEventListener("keydown", function (e) {
-  // console.log(e.key);
   if (e.key === "Escape") {
     closeAllDropdowns();
   }

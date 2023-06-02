@@ -11,17 +11,12 @@ let ustensilsListFiltred = [];
 
 function noMatch(value, matches, number) {
   if (value.length < number) {
-    alertMessage.classList.add("hidden");
-    alertMessage.ariaHidden = "true";
-    return;
+    return null;
   } else {
     if (matches.length === 0) {
       containerCards.innerHTML = "";
-      alertMessage.classList.remove("hidden");
-      alertMessage.ariaHidden = "false";
     } else if (matches.length >= 1) {
-      alertMessage.classList.add("hidden");
-      alertMessage.ariaHidden = "true";
+      null;
     }
   }
 }
@@ -61,7 +56,6 @@ function requestBySearchBar(searchText) {
     noMatch(searchText, filterCardsByInput, 3);
     renderAllArraySFiltred(filterCardsByInput);
   } else {
-    alertMessage.classList.add("hidden");
     renderAllArraySFiltred(allRecipes);
   }
 }
