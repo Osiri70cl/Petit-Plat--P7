@@ -247,3 +247,11 @@ overlayForm.addEventListener("click", () => {
   console.log("overlay click");
   closeAllDropdowns();
 });
+
+handlerDropdownIngredients();
+closeDropdown(
+  ingredientsDropdown,
+  ingredientsContainerTags,
+  ingredientsSearch,
+  ingredientsBtnChevron
+);
