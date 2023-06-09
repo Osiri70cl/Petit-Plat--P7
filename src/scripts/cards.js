@@ -55,18 +55,18 @@ function renderRecipesCards(recipes) {
                     <div class="main__container-card__figure__caption__head">
                         <h2 class="main__container-card__figure__caption__head__title">${recipe.name}</h2>
                         <div class="main__container-card__figure__caption__head__time">
-                            <img class="me-2" src="../assets/clock.svg" width="20" height="20" alt=""
+                            <img class="main__container-card__figure__caption__head__time__img" src="../assets/clock.svg" width="20" height="20" alt=""
                                 aria-hidden="true">
-                            <p class="mb-0 "><span>${recipe.time}</span> min</p>
+                            <p class="main__container-card__figure__caption__head__time__text "><span>${recipe.time}</span> min</p>
                         </div>
                     </div>
                     <div class="main__container-card__figure__caption__content">
-                        <div>
-                            <ul>
+                        <div class="main__container-card__figure__caption__content__list">
+                            <ul class="main__container-card__figure__caption__content__list__ul">
                                 ${newIngredientTag}
                             </ul>
                         </div>
-                        <div>
+                        <div class="main__container-card__figure__caption__content__text">
                             <p>${recipe.description}</p>
                         </div>
                     </div>

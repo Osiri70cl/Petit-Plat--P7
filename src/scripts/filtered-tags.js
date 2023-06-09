@@ -30,7 +30,7 @@ function renderFilteredTags() {
   let newTag = "";
   for (let i = 0; i < filteredTagsArr.length; i++) {
     newTag += `
-        <li class="filtered-tags-item list-group-item"
+        <li class="filtered-tags-item list-group-item bg-${tagBgColorArray[i]}"
            data-tag="#${i}">
                 ${filteredTagsArr[i]}
             <button class="filtered-tags-btn" type="button" aria-label="Supprimer le tag" onclick="deleteTag(${i})"></button>

@@ -3,7 +3,9 @@ h2 {
   font-family: Lato, sans-serif;
   font-size: 18px;
 }
-
+ul {
+  padding: 0;
+}
 a,
 a:hover {
   color: inherit;
@@ -16,8 +18,8 @@ input::placeholder {
 
 .container {
   margin: 0 auto;
-  max-width: 1440px;
-  padding: 0 16px;
+  max-width: 1240px;
+  padding: 16px;
 }
 
 .header {
@@ -65,12 +67,30 @@ input::placeholder {
       &__container {
         position: relative;
         width: fit-content;
+        height: fit-content;
         border-radius: 5px;
-        padding: 23px 15px;
         margin-right: 16px;
         &__dropdown {
           position: relative;
           display: flex;
+          align-items: center;
+          &__input {
+            width: 100%;
+            border-radius: 6px;
+            padding: 23px 12px 23px 24px;
+            color: white;
+            &::placeholder {
+              color: white;
+            }
+          }
+          &__btn {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -78,35 +98,172 @@ input::placeholder {
 }
 
 .main {
+  padding: 80px 0px;
   &__container-card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 50px;
     &__figure {
       background-color: #e7e7e7;
-      border-radius: 6px;
+      border-radius: 5px;
+      margin: 0;
       &__img {
         width: 100%;
         height: 178px;
         background-color: #c7bebe;
+        border-radius: 5px 5px 0px 0px;
       }
       &__caption {
         padding: 20px;
+        &__head {
+          display: flex;
+          justify-content: space-between;
+          &__time {
+            display: flex;
+            align-items: center;
+            &__img {
+              margin-right: 7px;
+            }
+          }
+        }
+        &__content {
+          display: flex;
+          gap: 16px;
+          &__list {
+            width: 50%;
+            &__ul {
+              margin: 0;
+              padding-left: 0;
+              font-size: 12px;
+            }
+          }
+          &__text {
+            width: 50%;
+            font-size: 12px;
+            text-align: justify;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+          }
+        }
       }
     }
   }
 }
 
 .card-width {
-  width: calc(100% / 12 * 4);
+  width: 380px;
+  height: 364px;
+}
+.card-ingredients-item {
+  list-style: none;
 }
 
 .blue {
   background-color: #3282f7;
+  border: 1px solid #3282f7;
+  &:hover,
+  &:focus {
+    border: 1px solid #1e5fd1;
+  }
 }
 .red {
   background-color: #ed6454;
+  border: 1px solid #ed6454;
+  &:hover,
+  &:focus {
+    border: 1px solid #d13f2a;
+  }
 }
 .redBlue {
   background-color: #68d9a4;
+  border: 1px solid #68d9a4;
+  &:hover,
+  &:focus {
+    border: 1px solid #3fc97a;
+  }
+}
+
+.container-tags {
+  width: 100%;
+  max-width: 667px;
+  height: auto;
+  top: 63px;
+  z-index: 10;
+}
+
+.dropdown-list-tags {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  padding-left: 10px;
+  & a {
+    width: 222px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    z-index: 100;
+  }
+}
+
+.list-tags-item:hover {
+  color: white;
+}
+
+.expanded {
+  max-width: 667px;
+  width: 100%;
+  height: auto;
+}
+
+.hidden {
+  display: none;
+}
+.filtered-tags-item {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 12px 6px 12px 12px;
+  border-radius: 6px;
+  color: white;
+  margin-right: 12px;
+}
+
+.filtered-tags-btn {
+  border: transparent;
+  background: url(../../../assets/x-circle.svg) no-repeat;
+  width: 20px;
+  height: 20px;
+  z-index: 10;
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.bg-blue {
+  background-color: #3282f7;
+  border: 1px solid #3282f7;
+  &:hover,
+  &:focus {
+    border: 1px solid #1e5fd1;
+  }
+}
+.bg-orange {
+  background-color: #ed6454;
+  border: 1px solid #ed6454;
+  &:hover,
+  &:focus {
+    border: 1px solid #d13f2a;
+  }
+}
+.bg-green {
+  background-color: #68d9a4;
+  border: 1px solid #68d9a4;
+  &:hover,
+  &:focus {
+    border: 1px solid #3fc97a;
+  }
 }

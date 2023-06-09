@@ -38,7 +38,7 @@ function openDropdown(dropdown, containerTags, inputDropdown, btnChevron) {
   dropdown.ariaExpanded = "true";
   containerTags.classList.remove("hidden");
   containerTags.ariaHidden = "false";
-  btnChevron.style.background = "url(../assets/chevron-up.svg)";
+  btnChevron.style.background = "url(../assets/chevron-up.svg) no-repeat";
   switch (inputDropdown.id) {
     case "ingredients-search":
       inputDropdown.placeholder = "Recherche un ingrédient";
@@ -58,7 +58,7 @@ function closeDropdown(dropdown, containerTags, inputDropdown, btnChevron) {
   dropdown.ariaExpanded = "false";
   containerTags.classList.add("hidden");
   containerTags.ariaHidden = "true";
-  btnChevron.style.background = "url(../assets/chevron-down.svg)";
+  btnChevron.style.background = "url(../assets/chevron-down.svg) no-repeat";
   inputDropdown.value = "";
   switch (inputDropdown.id) {
     case "ingredients-search":
