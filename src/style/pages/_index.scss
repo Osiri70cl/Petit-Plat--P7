@@ -64,12 +64,21 @@ input::placeholder {
     }
     &__dropdowns {
       display: flex;
+      flex-direction: column;
+      gap: 16px;
+      @media screen and (min-width: 768px) {
+        flex-direction: row;
+        gap: 0;
+      }
       &__container {
         position: relative;
-        width: fit-content;
+        width: 100%;
         height: fit-content;
         border-radius: 5px;
         margin-right: 16px;
+        @media screen and (min-width: 768px) {
+          width: fit-content;
+        }
         &__dropdown {
           position: relative;
           display: flex;
@@ -103,7 +112,10 @@ input::placeholder {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 25px;
+    @media screen and (min-width: 840px) {
+      gap: 50px;
+    }
     &__figure {
       background-color: #e7e7e7;
       border-radius: 5px;
@@ -155,8 +167,11 @@ input::placeholder {
 }
 
 .card-width {
-  width: 380px;
+  width: 100%;
   height: 364px;
+  @media screen and (min-width: 768px) {
+    width: 380px;
+  }
 }
 .card-ingredients-item {
   list-style: none;
@@ -197,9 +212,15 @@ input::placeholder {
 
 .dropdown-list-tags {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(1, 1fr);
   padding-left: 10px;
+  @media screen and (min-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
   & a {
     width: 222px;
     overflow: hidden;
