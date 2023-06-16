@@ -1,8 +1,5 @@
 const init = function () {
   renderRecipesCards(allRecipes);
-  renderIngredientsList(allRecipes);
-  renderAppliancesList(allRecipes);
-  renderUstensilsList(allRecipes);
   searchBar.value = "";
   filteredTagsArr = [];
   tagBgColorArray = [];
@@ -17,16 +14,4 @@ searchBar.addEventListener("click", function () {
 
 searchBar.addEventListener("input", function () {
   requestBySearchBar(searchBar.value);
-});
-
-ingredientsSearch.addEventListener("input", function () {
-  searchIngredientsList(ingredientsSearch.value);
-});
-
-appliancesSearch.addEventListener("input", function () {
-  searchAppliancesList(appliancesSearch.value);
-});
-
-ustensilsSearch.addEventListener("input", function () {
-  searchUstensilsList(ustensilsSearch.value);
 });
