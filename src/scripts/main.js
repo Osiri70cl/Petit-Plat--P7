@@ -128,3 +128,13 @@ function requestBySearchBar(searchText) {
     renderAllArraySFiltred(allRecipes);
   }
 }
+
+const init = function () {
+  renderRecipesCards(allRecipes);
+  searchBar.value = "";
+};
+init();
+
+searchBar.addEventListener("input", function () {
+  requestBySearchBar(searchBar.value);
+});
