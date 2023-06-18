@@ -15,8 +15,6 @@ function noMatch(value, matches, number) {
   } else {
     if (matches.length === 0) {
       containerCards.innerHTML = "";
-    } else if (matches.length >= 1) {
-      null;
     }
   }
 }
