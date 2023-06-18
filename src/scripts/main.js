@@ -1,4 +1,4 @@
-const searchInput = document.querySelector("#search-bar-input");
+// const searchInput = document.querySelector("#search-bar-input");
 const recipeList = document.querySelector("#container-cards-recipes");
 
 function generateRecipeHTML(recipe) {
@@ -29,36 +29,45 @@ function generateRecipeHTML(recipe) {
 
 function searchRecipes(query) {
   return recipes.filter((recipe) => {
-    return (
-      recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-      recipe.ingredients.some((ingredient) =>
-        ingredient.ingredient.toLowerCase().includes(query.toLowerCase())
-      ) ||
-      recipe.appliance.toLowerCase().includes(query.toLowerCase()) ||
-      recipe.ustensils.some((utensil) =>
-        utensil.toLowerCase().includes(query.toLowerCase())
-      )
-    );
+    let match = false;
+    const lowerCaseQuery = query.toLowerCase();
+
+    match = recipe.name.toLowerCase().includes(lowerCaseQuery);
+
+    if (!match) {
+      recipe.ingredients.forEach((ingredient) => {
+        if (ingredient.ingredient.toLowerCase().includes(lowerCaseQuery)) {
+          match = true;
+        }
+      });
+    }
+
+    if (!match) {
+      match = recipe.appliance.toLowerCase().includes(lowerCaseQuery);
+    }
+
+    if (!match) {
+      recipe.ustensils.forEach((utensil) => {
+        if (utensil.toLowerCase().includes(lowerCaseQuery)) {
+          match = true;
+        }
+      });
+    }
+
+    return match;
   });
 }
 
 let timerId;
 let originalRecipes = recipes.slice();
 
-searchInput.addEventListener("input", (event) => {
-  const query = event.target.value.trim();
-
+function searchInput(query) {
   clearTimeout(timerId);
 
   if (query.length >= 3) {
     timerId = setTimeout(() => {
       const filteredRecipes = searchRecipes(query);
       recipeList.innerHTML = "";
-      filteredRecipes.forEach((recipe) => {
-        const recipeElement = document.createElement("li");
-        recipeElement.innerHTML = generateRecipeHTML(recipe);
-        recipeList.appendChild(recipeElement);
-      });
     }, 500);
   } else {
     recipeList.innerHTML = "";
@@ -67,7 +76,7 @@ searchInput.addEventListener("input", (event) => {
       recipeList.insertAdjacentHTML("beforeend", recipeHTML);
     });
   }
-});
+}
 
 recipes.sort((a, b) => a.name.localeCompare(b.name));
 recipes.forEach((recipe) => {
@@ -79,3 +88,5 @@ function updateDisplayedRecipes(recipes) {
   const recipeList = document.querySelector("#recipes-container");
   recipeList.innerHTML = "";
 }
+
+searchInput("coco");
