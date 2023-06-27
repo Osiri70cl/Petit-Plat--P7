@@ -97,7 +97,7 @@ function noMatch(value, matches, number) {
 }
 
 function renderAllArraySFiltred(ArrayFiltred) {
-  return (containerCards.innerHTML = ""), renderRecipesCards(ArrayFiltred);
+  return renderRecipesCards(ArrayFiltred);
 }
 
 function normalizeElement(element) {
@@ -109,21 +109,22 @@ function normalizeElement(element) {
 
 function requestBySearchBar(searchText) {
   if (searchText.length >= 3) {
-    filterCardsByInput = allRecipes.filter((recipe) => {
-      const regex = new RegExp(normalizeElement(`${searchText}`));
-      let ingredientsArray = [];
-      for (let key in recipe.ingredients) {
-        let ingredientElts = recipe.ingredients[key].ingredient;
-        ingredientsArray.push(ingredientElts);
-      }
+    filterCards = allRecipes.filter((recipe) => {
+      const regex = new RegExp(normalizeElement(searchText));
+      const recipeName = normalizeElement(recipe.name);
+      const ingredientsMatch = recipe.ingredients.some((ingredient) =>
+        normalizeElement(ingredient.ingredient).match(regex)
+      );
+
       return (
-        normalizeElement(recipe.name).match(regex) ||
-        normalizeElement(`${ingredientsArray}`).match(regex) ||
+        recipeName.match(regex) ||
+        ingredientsMatch ||
         normalizeElement(recipe.description).match(regex)
       );
     });
-    noMatch(searchText, filterCardsByInput, 3);
-    renderAllArraySFiltred(filterCardsByInput);
+
+    noMatch(searchText, filterCards, 3);
+    renderAllArraySFiltred(filterCards);
   } else {
     renderAllArraySFiltred(allRecipes);
   }
