@@ -1,5 +1,4 @@
 const searchBar = document.getElementById("search-bar-input");
-const alertMessage = document.getElementById("alert-message");
 
 let filterCardsByInput = [];
 let filterFurtherByTags = [];
